@@ -37,7 +37,7 @@ export async function MentorDashboard({ user }: { user: CurrentUser }) {
           </p>
         </Hero>
 
-        <section>
+        <section data-tour="mentee-cards">
           <SectionHeader title="Assigned mentees" action={<Link href="/mentees" className="hover:underline">View more</Link>} />
           {mentees.length === 0 ? (
             <EmptyState>No mentees have been assigned to you yet. The administrator handles assignments.</EmptyState>
@@ -63,7 +63,7 @@ export async function MentorDashboard({ user }: { user: CurrentUser }) {
           )}
         </section>
 
-        <section>
+        <section data-tour="recent-notes">
           <SectionHeader title="Your recent notes" />
           {notes.length === 0 ? (
             <EmptyState>Open a mentee to add notes and recommendations.</EmptyState>
@@ -97,7 +97,7 @@ export async function MentorDashboard({ user }: { user: CurrentUser }) {
         taskAction={<Link href="/meetings" className="btn-outline px-6 py-2 text-xs">All meetings</Link>}
         callout={
           needsAttention.length > 0 && (
-            <div className="rounded-2xl border border-mist p-5">
+            <div data-tour="needs-attention" className="rounded-2xl border border-mist p-5">
               <div className="text-center font-bold text-ink">Needs attention</div>
               <ul className="mt-3 space-y-2">
                 {needsAttention.slice(0, 4).map((m) => (

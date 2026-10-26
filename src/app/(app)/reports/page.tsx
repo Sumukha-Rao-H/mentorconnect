@@ -26,13 +26,13 @@ export default async function ReportsPage() {
         title="Reports"
         subtitle="Department-wide mentoring statistics."
         action={
-          <a href="/api/export/mentees" className="btn-outline px-4 py-2 text-xs">
+          <a data-tour="export" href="/api/export/mentees" className="btn-outline px-4 py-2 text-xs">
             <Download className="size-4" /> Export all mentees (CSV)
           </a>
         }
       />
 
-      <section className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <section data-tour="report-stats" className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Stat label="Mentees" value={roles.mentee} tone="navy" />
         <Stat label="Mentors" value={roles.mentor} tone="teal" />
         <Stat label="Mentee : mentor" value={ratio} />
@@ -40,7 +40,7 @@ export default async function ReportsPage() {
       </section>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <section className="card p-5 sm:p-6">
+        <section data-tour="report-status" className="card p-5 sm:p-6">
           <SectionHeader title="Profiles by status" />
           <ul className="space-y-3">
             {(Object.keys(status) as (keyof typeof status)[]).map((k) => (
@@ -54,7 +54,7 @@ export default async function ReportsPage() {
           </ul>
         </section>
 
-        <section className="card p-5 sm:p-6">
+        <section data-tour="report-semesters" className="card p-5 sm:p-6">
           <SectionHeader title="Mentees by semester" />
           <div className="flex h-48 items-end gap-2 sm:gap-3" role="img" aria-label="Mentees per semester">
             {semesters.map((s) => (
@@ -68,7 +68,7 @@ export default async function ReportsPage() {
         </section>
       </div>
 
-      <section className="card p-5 sm:p-6">
+      <section data-tour="report-workload" className="card p-5 sm:p-6">
         <SectionHeader title="Mentor workload" />
         <ul className="space-y-4">
           {workload.map((w) => (

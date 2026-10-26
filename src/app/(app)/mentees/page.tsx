@@ -38,14 +38,14 @@ export default async function MenteesPage(props: PageProps<"/mentees">) {
         subtitle={`${rows.length} student${rows.length === 1 ? "" : "s"}${q ? ` matching “${q}”` : ""}`}
         action={
           isStaffWide && (
-            <a href={`/api/export/mentees?${exportQuery}`} className="btn-outline px-4 py-2 text-xs">
+            <a data-tour="export" href={`/api/export/mentees?${exportQuery}`} className="btn-outline px-4 py-2 text-xs">
               <Download className="size-4" /> Export CSV
             </a>
           )
         }
       />
 
-      <form className="card mb-6 grid gap-3 p-4 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_auto]">
+      <form data-tour="mentee-filters" className="card mb-6 grid gap-3 p-4 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_auto]">
         <input name="q" defaultValue={q} placeholder="Name, USN or email" aria-label="Search" className="input" />
         <select name="status" defaultValue={status} aria-label="Status" className="input">
           <option value="">Any status</option>
@@ -79,7 +79,7 @@ export default async function MenteesPage(props: PageProps<"/mentees">) {
       {rows.length === 0 ? (
         <EmptyState>No mentees match these filters.</EmptyState>
       ) : (
-        <>
+        <div data-tour="mentee-list">
           {/* Cards on small screens */}
           <ul className="grid gap-3 sm:grid-cols-2 md:hidden">
             {rows.map((m) => (
@@ -131,7 +131,7 @@ export default async function MenteesPage(props: PageProps<"/mentees">) {
               </tbody>
             </table>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

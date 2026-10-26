@@ -12,7 +12,7 @@ export default async function ActivityPage() {
   return (
     <div className="mx-auto max-w-3xl">
       <PageHeader title="Activity log" subtitle="Audit trail of sign-ins, profile changes, endorsements, notes and meetings (latest 100)." />
-      <div className="card p-5 sm:p-6">
+      <div data-tour="activity-log" className="card p-5 sm:p-6">
         <ActivityFeed items={items} />
       </div>
     </div>

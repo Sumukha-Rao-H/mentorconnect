@@ -10,6 +10,7 @@ import {
   GraduationCap,
   History,
   Home,
+  LifeBuoy,
   LogOut,
   Menu,
   Settings,
@@ -31,6 +32,7 @@ const NAV: NavItem[] = [
   { href: "/reports", label: "Reports", icon: FileBarChart, roles: ["admin", "hod"] },
   { href: "/users", label: "Users", icon: Users, roles: ["admin"] },
   { href: "/activity", label: "Activity Log", icon: History, roles: ["admin", "hod"] },
+  { href: "/help", label: "Help & Tour", icon: LifeBuoy, roles: ["mentee", "mentor", "admin", "hod"] },
   { href: "/settings", label: "Settings", icon: Settings, roles: ["mentee", "mentor", "admin", "hod"] },
 ];
 
@@ -90,7 +92,7 @@ export function Sidebar({ role, footer }: { role: Role; footer: React.ReactNode 
       {/* Desktop rail */}
       <aside className="hidden w-64 shrink-0 flex-col bg-navy px-5 py-8 lg:flex">
         <Brand />
-        <div className="mt-10">
+        <div className="mt-10" data-tour="nav">
           <NavLinks role={role} />
         </div>
         <Footer footer={footer} />
@@ -102,6 +104,7 @@ export function Sidebar({ role, footer }: { role: Role; footer: React.ReactNode 
         <button
           onClick={() => setOpen(true)}
           aria-label="Open menu"
+          data-tour="menu-button"
           className="cursor-pointer rounded-lg p-2 text-white hover:bg-white/10"
         >
           <Menu className="size-6" />

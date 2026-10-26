@@ -22,8 +22,10 @@ export function RightRail({
 }) {
   return (
     <aside className="space-y-6 xl:w-80 xl:shrink-0">
-      <Calendar events={events} today={todayIST()} />
-      <div>
+      <div data-tour="calendar">
+        <Calendar events={events} today={todayIST()} />
+      </div>
+      <div data-tour="tasks">
         <h3 className="border-b border-mist pb-3 text-center font-bold text-ink">{tasksTitle}</h3>
         {tasks.length === 0 ? (
           <p className="py-6 text-center text-sm text-ink/50">Nothing scheduled. Enjoy the calm.</p>

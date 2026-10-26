@@ -193,6 +193,20 @@ export async function recentActivity(limit = 8) {
     .limit(limit);
 }
 
+// A real mentee for the tour to open on the "Mentee details" steps.
+export async function tourSampleMentee(viewer: CurrentUser): Promise<number | null> {
+  if (viewer.role === "mentee") return null;
+  const [row] = await db
+    .select({ id: users.id })
+    .from(users)
+    .innerJoin(menteeProfiles, eq(menteeProfiles.userId, users.id))
+    .where(and(eq(users.role, "mentee"), viewer.role === "mentor" ? eq(menteeProfiles.mentorId, viewer.id) : undefined))
+    // Admins land on a submitted profile so the endorse controls are visible.
+    .orderBy(sql`${menteeProfiles.status} = 'submitted' desc`, asc(users.name))
+    .limit(1);
+  return row?.id ?? null;
+}
+
 export async function notificationCount(viewer: CurrentUser) {
   if (viewer.role === "mentee") {
     const [r] = await db

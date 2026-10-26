@@ -23,7 +23,7 @@ export default async function UsersPage() {
     <div className="grid gap-8 xl:grid-cols-[1fr_340px]">
       <div className="min-w-0">
         <PageHeader title="Users & roles" subtitle={`${all.length} accounts. Role changes apply on the user's next request.`} />
-        <ul className="space-y-3">
+        <ul data-tour="users-list" className="space-y-3">
           {all.map((u) => (
             <li key={u.id} className={`card flex flex-col gap-3 p-4 lg:flex-row lg:items-center ${u.active ? "" : "opacity-60"}`}>
               <div className="flex min-w-0 flex-1 items-center gap-3">
@@ -63,7 +63,7 @@ export default async function UsersPage() {
         </ul>
       </div>
       <aside>
-        <div className="card p-5 xl:sticky xl:top-6">
+        <div data-tour="create-user" className="card p-5 xl:sticky xl:top-6">
           <h2 className="section-title mb-4">Create account</h2>
           <CreateUserForm />
         </div>

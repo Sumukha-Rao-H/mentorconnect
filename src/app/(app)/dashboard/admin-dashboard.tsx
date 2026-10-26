@@ -29,14 +29,14 @@ export async function AdminDashboard({ user }: { user: CurrentUser }) {
           </p>
         </Hero>
 
-        <section className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <section data-tour="stats" className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           <Stat label="Mentees" value={roles.mentee} tone="navy" />
           <Stat label="Mentors" value={roles.mentor} tone="teal" />
           <Stat label="Endorsed" value={status.endorsed} hint={`${status.changes_requested} need changes`} />
           <Stat label="Pending" value={status.submitted} tone="ink" hint="Awaiting your review" />
         </section>
 
-        <section>
+        <section data-tour="endorsement-queue">
           <SectionHeader title="Endorsement queue" action={<Link href="/endorsements" className="hover:underline">View more</Link>} />
           {pending.length === 0 ? (
             <EmptyState>No profiles are waiting. Nice and tidy.</EmptyState>
@@ -58,7 +58,7 @@ export async function AdminDashboard({ user }: { user: CurrentUser }) {
           )}
         </section>
 
-        <section>
+        <section data-tour="unassigned">
           <SectionHeader title="Mentees without a mentor" />
           {unassigned.length === 0 ? (
             <EmptyState>Every mentee has a mentor.</EmptyState>
@@ -90,7 +90,7 @@ export async function AdminDashboard({ user }: { user: CurrentUser }) {
       </div>
 
       <aside className="space-y-6 xl:w-80 xl:shrink-0">
-        <div className="card p-5">
+        <div data-tour="activity-feed" className="card p-5">
           <h3 className="border-b border-mist pb-3 text-center font-bold text-ink">Recent activity</h3>
           <ActivityFeed items={activity} compact />
           <div className="mt-3 text-center">

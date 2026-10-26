@@ -69,13 +69,17 @@ export default async function MeetingsPage() {
           title="Meetings"
           subtitle={user.role === "mentor" ? "Schedule new meetings from a mentee's page." : "Mentoring sessions and their minutes."}
         />
-        <h2 className="section-title mb-3">Upcoming ({upcoming.length})</h2>
-        {upcoming.length === 0 ? <EmptyState>No upcoming meetings.</EmptyState> : <ul className="space-y-3">{upcoming.map(row)}</ul>}
-        <h2 className="section-title mb-3 mt-10">History ({past.length})</h2>
-        {past.length === 0 ? <EmptyState>No past meetings.</EmptyState> : <ul className="space-y-3">{past.map(row)}</ul>}
+        <div data-tour="meetings-upcoming">
+          <h2 className="section-title mb-3">Upcoming ({upcoming.length})</h2>
+          {upcoming.length === 0 ? <EmptyState>No upcoming meetings.</EmptyState> : <ul className="space-y-3">{upcoming.map(row)}</ul>}
+        </div>
+        <div data-tour="meetings-history" className="mt-10">
+          <h2 className="section-title mb-3">History ({past.length})</h2>
+          {past.length === 0 ? <EmptyState>No past meetings.</EmptyState> : <ul className="space-y-3">{past.map(row)}</ul>}
+        </div>
       </div>
       <aside className="xl:w-80 xl:shrink-0">
-        <div className="xl:sticky xl:top-6">
+        <div data-tour="calendar" className="xl:sticky xl:top-6">
           <Calendar events={upcoming.map((m) => toISTDate(m.meeting.scheduledAt))} today={todayIST()} />
         </div>
       </aside>

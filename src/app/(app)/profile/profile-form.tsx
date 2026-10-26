@@ -53,7 +53,7 @@ export function ProfileForm({
 
         <section className="card p-5 sm:p-6">
           <h2 className="section-title mb-5">Basic details</h2>
-          <div className="mb-6 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <div data-tour="photo" className="mb-6 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <Avatar name={name} photo={photo || null} size={88} />
             <div>
               <div className="flex flex-wrap gap-2">
@@ -90,7 +90,7 @@ export function ProfileForm({
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div data-tour="profile-basic" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <Field label="Full name" name="name">
               <input id="name" value={name} disabled className="input" title="Change your name in Settings" />
             </Field>
@@ -117,7 +117,7 @@ export function ProfileForm({
           </div>
         </section>
 
-        <section className="card p-5 sm:p-6">
+        <section data-tour="profile-contact" className="card p-5 sm:p-6">
           <h2 className="section-title mb-5">Contact</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Phone" name="phone">
@@ -135,7 +135,7 @@ export function ProfileForm({
           </div>
         </section>
 
-        <section className="card p-5 sm:p-6">
+        <section data-tour="profile-about" className="card p-5 sm:p-6">
           <h2 className="section-title mb-1">About you</h2>
           <p className="mb-5 text-xs text-ink/50">Separate multiple hobbies, skills or interests with commas.</p>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -160,7 +160,7 @@ export function ProfileForm({
           </div>
         </section>
 
-        <div className="sticky bottom-0 -mx-4 flex flex-col gap-3 border-t border-mist bg-white/95 px-4 py-4 backdrop-blur sm:mx-0 sm:flex-row sm:items-center sm:rounded-2xl sm:border sm:px-5">
+        <div data-tour="profile-save" className="sticky bottom-0 -mx-4 flex flex-col gap-3 border-t border-mist bg-white/95 px-4 py-4 backdrop-blur sm:mx-0 sm:flex-row sm:items-center sm:rounded-2xl sm:border sm:px-5">
           <div className="flex-1">
             <FormMessage state={state} />
           </div>
@@ -169,7 +169,7 @@ export function ProfileForm({
       </form>
 
       {(status === "draft" || status === "changes_requested") && (
-        <form action={submitForEndorsement} className="card flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:p-6">
+        <form action={submitForEndorsement} data-tour="profile-submit" className="card flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:p-6">
           <div className="flex-1">
             <h2 className="font-bold text-ink">Ready for endorsement?</h2>
             <p className="text-sm text-ink/60">

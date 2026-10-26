@@ -71,7 +71,7 @@ export async function MenteeDashboard({ user }: { user: CurrentUser }) {
           )}
         </Hero>
 
-        <section id="recommendations">
+        <section id="recommendations" data-tour="recommendations">
           <SectionHeader title="Recommendations for you" action={<span className="text-ink/50">{recommendations.length} total</span>} />
           {recommendations.length === 0 ? (
             <EmptyState>Your mentor&apos;s recommendations will show up here.</EmptyState>
@@ -103,7 +103,7 @@ export async function MenteeDashboard({ user }: { user: CurrentUser }) {
           )}
         </section>
 
-        <section>
+        <section data-tour="goals">
           <SectionHeader title="Your goals" action={<span className="text-ink/50">{bundle.goals.filter((g) => g.done).length}/{bundle.goals.length} done</span>} />
           <ul className="space-y-2">
             {bundle.goals.map((g) => (
@@ -130,7 +130,7 @@ export async function MenteeDashboard({ user }: { user: CurrentUser }) {
           </form>
         </section>
 
-        <section className="grid gap-4 sm:grid-cols-2">
+        <section data-tour="mentor-cards" className="grid gap-4 sm:grid-cols-2">
           <div className="flex min-h-36 items-center justify-between gap-4 rounded-2xl bg-teal p-6 text-white">
             <div className="min-w-0">
               <div className="text-xs font-bold uppercase tracking-wide text-white/70">Your mentor</div>
@@ -160,7 +160,7 @@ export async function MenteeDashboard({ user }: { user: CurrentUser }) {
         tasks={tasks}
         taskAction={<Link href="/meetings" className="btn-outline px-6 py-2 text-xs">View meetings</Link>}
         callout={
-          <div className="rounded-2xl border border-mist p-5 text-center">
+          <div data-tour="endorsement-status" className="rounded-2xl border border-mist p-5 text-center">
             <div className="font-bold text-ink">Endorsement</div>
             <div className="mt-3 flex justify-center"><StatusBadge status={status} /></div>
             <p className="mt-3 text-xs text-ink/55">

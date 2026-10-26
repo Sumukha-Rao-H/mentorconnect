@@ -29,6 +29,11 @@ Permissions are defined once in [src/lib/rbac.ts](src/lib/rbac.ts) and enforced 
 - HOD and admin reports: status mix, semester distribution, mentor workload, and CSV export (with formula-injection protection).
 - An audit log of sign-ins, profile changes, endorsements, notes and meetings.
 - A responsive layout: sidebar on desktop, drawer on mobile, card lists instead of tables on phones.
+- **Guided tour** ([src/components/tour](src/components/tour)): a role-specific, multi-page walkthrough that spotlights each feature and moves between pages for you.
+  - It starts automatically on a user's first visit to the dashboard. After that, restart it from the **Tour** button in the top bar.
+  - The **Help & Tour** page lists every function for the role, page by page, each with a "Show me" button that replays just that section.
+  - Controls: arrow keys and Esc. On phones the step card becomes a bottom sheet.
+  - Steps live in [steps.ts](src/components/tour/steps.ts) and point at `data-tour="…"` anchors on the pages.
 
 ## Setup
 

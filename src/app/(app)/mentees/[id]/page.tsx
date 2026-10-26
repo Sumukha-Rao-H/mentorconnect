@@ -39,7 +39,7 @@ export default async function MenteeDetailPage(props: PageProps<"/mentees/[id]">
       </Link>
 
       {/* Header */}
-      <section className="card overflow-hidden">
+      <section data-tour="mentee-header" className="card overflow-hidden">
         <div className="h-20 bg-navy sm:h-24" />
         <div className="flex flex-col gap-4 px-5 pb-5 sm:flex-row sm:items-end sm:px-8">
           <div className="-mt-12">
@@ -67,7 +67,7 @@ export default async function MenteeDetailPage(props: PageProps<"/mentees/[id]">
       <div className="grid gap-6 xl:grid-cols-[1fr_360px]">
         <div className="min-w-0 space-y-6">
           {/* Profile info */}
-          <section className="card p-5 sm:p-6">
+          <section data-tour="mentee-profile" className="card p-5 sm:p-6">
             <SectionHeader title="Profile" />
             <dl className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               <InfoRow label="Date of birth" value={profile?.dob ? formatDate(profile.dob) : null} />
@@ -89,7 +89,7 @@ export default async function MenteeDetailPage(props: PageProps<"/mentees/[id]">
           </section>
 
           {/* Notes & recommendations */}
-          <section className="card p-5 sm:p-6">
+          <section data-tour="notes" className="card p-5 sm:p-6">
             <SectionHeader title="Notes & recommendations" action={<span className="text-ink/50">{bundle.notes.length}</span>} />
             {isMentor && <NoteForm menteeId={id} />}
             {bundle.notes.length === 0 ? (
@@ -128,7 +128,7 @@ export default async function MenteeDetailPage(props: PageProps<"/mentees/[id]">
           </section>
 
           {/* Meetings */}
-          <section className="card p-5 sm:p-6">
+          <section data-tour="meetings-panel" className="card p-5 sm:p-6">
             <SectionHeader title="Meetings" />
             {isMentor && <MeetingForm menteeId={id} />}
             {bundle.meetings.length === 0 ? (
@@ -168,7 +168,7 @@ export default async function MenteeDetailPage(props: PageProps<"/mentees/[id]">
 
         <aside className="space-y-6">
           {/* Endorsement */}
-          <section id="endorsement" className="card scroll-mt-6 p-5">
+          <section id="endorsement" data-tour="endorsement-panel" className="card scroll-mt-6 p-5">
             <h2 className="font-bold text-ink">Endorsement</h2>
             <div className="mt-3 flex items-center gap-2"><StatusBadge status={status} /></div>
             <p className="mt-3 text-xs text-ink/60">
@@ -198,7 +198,7 @@ export default async function MenteeDetailPage(props: PageProps<"/mentees/[id]">
           </section>
 
           {/* Mentor */}
-          <section className="card p-5">
+          <section data-tour="mentor-panel" className="card p-5">
             <h2 className="font-bold text-ink">Mentor</h2>
             {mentor ? (
               <div className="mt-3 flex items-center gap-3">
@@ -225,7 +225,7 @@ export default async function MenteeDetailPage(props: PageProps<"/mentees/[id]">
           </section>
 
           {/* Goals */}
-          <section className="card p-5">
+          <section data-tour="goals-panel" className="card p-5">
             <h2 className="font-bold text-ink">Goals</h2>
             {bundle.goals.length === 0 ? (
               <p className="mt-2 text-sm text-ink/55">No goals yet.</p>

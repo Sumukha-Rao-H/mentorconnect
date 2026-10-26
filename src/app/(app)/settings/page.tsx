@@ -12,11 +12,11 @@ export default async function SettingsPage() {
     <div className="mx-auto max-w-3xl">
       <PageHeader title="Settings" subtitle={`${user.email} · ${ROLE_LABEL[user.role]} · ${user.department}`} />
       <div className="grid gap-6 md:grid-cols-2">
-        <section className="card p-5 sm:p-6">
+        <section data-tour="settings-account" className="card p-5 sm:p-6">
           <h2 className="section-title mb-4">Account</h2>
           <AccountForm name={user.name} phone={user.phone ?? ""} />
         </section>
-        <section className="card p-5 sm:p-6">
+        <section data-tour="settings-password" className="card p-5 sm:p-6">
           <h2 className="section-title mb-4">Change password</h2>
           <PasswordForm />
         </section>

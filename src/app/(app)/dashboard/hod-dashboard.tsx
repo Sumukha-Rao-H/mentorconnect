@@ -42,14 +42,14 @@ export async function HodDashboard({ user }: { user: CurrentUser }) {
           </p>
         </Hero>
 
-        <section className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <section data-tour="stats" className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           <Stat label="Mentees" value={roles.mentee} tone="navy" />
           <Stat label="Mentors" value={roles.mentor} tone="teal" />
           <Stat label="Endorsed" value={`${endorsedPct}%`} hint={`${status.endorsed} of ${total}`} />
           <Stat label="Upcoming meetings" value={upcoming.length} tone="ink" />
         </section>
 
-        <section>
+        <section data-tour="status-bar">
           <SectionHeader title="Profile status" />
           <div className="flex h-4 overflow-hidden rounded-full bg-canvas" role="img" aria-label="Profile status distribution">
             {bars.map((b) => (b.value ? <div key={b.label} className={b.cls} style={{ width: `${(b.value / Math.max(total, 1)) * 100}%` }} /> : null))}
@@ -63,7 +63,7 @@ export async function HodDashboard({ user }: { user: CurrentUser }) {
           </ul>
         </section>
 
-        <section>
+        <section data-tour="workload">
           <SectionHeader title="Mentor workload" action={<Link href="/reports" className="hover:underline">View more</Link>} />
           <div className="overflow-x-auto rounded-2xl border border-mist">
             <table className="w-full min-w-[480px] text-left text-sm">
@@ -91,7 +91,7 @@ export async function HodDashboard({ user }: { user: CurrentUser }) {
           </div>
         </section>
 
-        <section>
+        <section data-tour="latest-recs">
           <SectionHeader title="Latest recommendations" />
           {recs.length === 0 ? (
             <EmptyState>No recommendations yet.</EmptyState>

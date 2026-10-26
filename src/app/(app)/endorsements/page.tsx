@@ -22,6 +22,7 @@ export default async function EndorsementsPage() {
     <div>
       <PageHeader title="Endorsements" subtitle="Verify submitted mentee profiles. Endorse them, or send them back with a remark." />
 
+      <div data-tour="endorse-queue">
       <h2 className="section-title mb-3">Awaiting review ({pending.length})</h2>
       {pending.length === 0 ? (
         <EmptyState>Nothing to review right now.</EmptyState>
@@ -57,8 +58,9 @@ export default async function EndorsementsPage() {
           ))}
         </div>
       )}
+      </div>
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-2">
+      <div data-tour="endorse-history" className="mt-10 grid gap-6 lg:grid-cols-2">
         <section>
           <h2 className="section-title mb-3">Changes requested ({changes.length})</h2>
           <ul className="card divide-y divide-mist">
