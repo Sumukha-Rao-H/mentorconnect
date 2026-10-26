@@ -1,6 +1,7 @@
 import "server-only";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
+import { attachDatabasePool } from "@vercel/functions";
 import * as schema from "./schema";
 
 // `next start` is a long-running Node server, so a pooled node-postgres client
@@ -17,5 +18,9 @@ const pool =
   });
 
 if (process.env.NODE_ENV !== "production") globalForDb.pgPool = pool;
+
+// On Vercel Fluid compute, lets idle pooled connections close cleanly before
+// an instance is suspended. It's a no-op everywhere else.
+attachDatabasePool(pool);
 
 export const db = drizzle(pool, { schema });

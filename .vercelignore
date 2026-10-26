@@ -1,0 +1,7 @@
+# Keep secrets, local tooling and coursework out of the deployment upload.
+.env*
+.neon
+.claude
+docs
+.next
+node_modules
