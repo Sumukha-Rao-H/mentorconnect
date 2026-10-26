@@ -2,6 +2,8 @@
 
 A role-based (RBAC) mentor–mentee management app built with Next.js 16 (App Router), Drizzle ORM and Neon Postgres.
 
+**Live demo:** https://mentorconnect-tau.vercel.app
+
 ## Roles and what they can do
 
 | Capability | Mentee | Mentor | Admin | HOD |
@@ -53,6 +55,17 @@ npm run db:migrate     # applies drizzle/ migrations over the direct (unpooled) 
 npm run db:seed        # demo data (wipes the app tables)
 npm run dev            # or: npm run build && npm start
 ```
+
+## Deployment
+
+The app is hosted on Vercel, and the project is linked to this GitHub repo.
+
+- Every push to `main` deploys to production. Pushes to other branches get preview URLs.
+- The Vercel project needs two environment variables:
+  - `DATABASE_URL`: Neon's pooled connection string.
+  - `SESSION_SECRET`: a random string used to sign login sessions.
+- On Vercel, the `pg` pool is registered with `attachDatabasePool` from `@vercel/functions`, so idle connections close cleanly when an instance is paused.
+- To deploy manually from your machine, run `vercel deploy --prod`.
 
 ## Demo accounts (seed data only)
 
