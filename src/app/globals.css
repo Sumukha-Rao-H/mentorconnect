@@ -1,26 +1,53 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Palette: #353535 ink, #3c6e71 teal, #ffffff, #d9d9d9 mist, #284b63 navy */
+@theme {
+  --color-ink: #353535;
+  --color-teal: #3c6e71;
+  --color-mist: #d9d9d9;
+  --color-navy: #284b63;
+  --color-canvas: #eef0f0;
+  --font-sans: var(--font-lato), ui-sans-serif, system-ui, sans-serif;
+  --shadow-card: 0 10px 30px -12px rgb(40 75 99 / 0.18);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+@utility card {
+  @apply rounded-2xl bg-white shadow-card;
+}
+
+@utility input {
+  @apply w-full rounded-xl border border-mist bg-white px-3.5 py-2.5 text-sm text-ink outline-none transition placeholder:text-ink/40 focus:border-teal focus:ring-2 focus:ring-teal/20 disabled:bg-mist/30;
+}
+
+@utility label {
+  @apply mb-1.5 block text-xs font-bold uppercase tracking-wide text-ink/60;
+}
+
+@utility btn {
+  @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition disabled:cursor-not-allowed disabled:opacity-60;
+}
+
+@utility btn-primary {
+  @apply btn bg-teal text-white hover:bg-navy;
+}
+
+@utility btn-navy {
+  @apply btn bg-navy text-white hover:bg-ink;
+}
+
+@utility btn-outline {
+  @apply btn border border-navy text-navy hover:bg-navy hover:text-white;
+}
+
+@utility btn-ghost {
+  @apply btn px-3 py-1.5 text-ink/70 hover:bg-mist/50;
+}
+
+@utility section-title {
+  @apply text-lg font-bold text-ink sm:text-xl;
 }

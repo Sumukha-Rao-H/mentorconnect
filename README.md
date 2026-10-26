@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MentorConnect
 
-## Getting Started
+A role-based (RBAC) mentor–mentee management app built with Next.js 16 (App Router), Drizzle ORM and Neon Postgres.
 
-First, run the development server:
+## Roles and what they can do
+
+| Capability | Mentee | Mentor | Admin | HOD |
+| --- | :-: | :-: | :-: | :-: |
+| Fill in own profile (name, USN, semester, hobbies, skills, photo, contacts…) | ✅ | | | |
+| Submit profile for endorsement | ✅ | | | |
+| View assigned mentees' profiles | | ✅ | | |
+| View every mentee | | | ✅ | ✅ (read-only) |
+| Add recommendations (visible to mentee) and notes (optionally private) | | ✅ | | |
+| Set goals, schedule meetings, record minutes | | ✅ | goals only for self (mentee) | |
+| Endorse a profile / request changes with a remark | | | ✅ | |
+| Assign mentors, create users, change roles, deactivate accounts | | | ✅ | |
+| Reports, CSV export, audit log | | | ✅ | ✅ |
+
+Permissions are defined once in [src/lib/rbac.ts](src/lib/rbac.ts) and enforced in three places:
+1. [src/proxy.ts](src/proxy.ts): an optimistic redirect based on the signed session cookie.
+2. Every page: `requireRole()` / `canViewMentee()`, using the role freshly read from the database.
+3. Every server action: `requirePermission()` / `assertCanViewMentee()`, so a crafted request can't get past the UI.
+
+### Extra features beyond the brief
+- Profile completion meter, plus a draft → submitted → endorsed / changes-requested workflow. Editing an endorsed profile resets it to draft.
+- Private staff notes, which mentees never see, alongside recommendations, which mentees can acknowledge.
+- Goals with due dates, meetings with minutes, and a calendar with a "tasks today" rail.
+- Endorsement queue with quick endorse, plus mentor assignment from the dashboard.
+- HOD and admin reports: status mix, semester distribution, mentor workload, and CSV export (with formula-injection protection).
+- An audit log of sign-ins, profile changes, endorsements, notes and meetings.
+- A responsive layout: sidebar on desktop, drawer on mobile, card lists instead of tables on phones.
+
+## Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+neon deploy            # provisions Neon and writes DATABASE_URL / DATABASE_URL_UNPOOLED to .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Add a session secret to `.env.local`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+node -e "console.log('SESSION_SECRET='+require('crypto').randomBytes(32).toString('base64url'))" >> .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run db:migrate     # applies drizzle/ migrations over the direct (unpooled) URL
+npm run db:seed        # demo data (wipes the app tables)
+npm run dev            # or: npm run build && npm start
+```
 
-## Learn More
+## Demo accounts (seed data only)
 
-To learn more about Next.js, take a look at the following resources:
+Every seeded account uses the password defined as `DEMO_PASSWORD` in [src/db/seed.ts](src/db/seed.ts).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Role | Email |
+| --- | --- |
+| Admin | admin@nmamit.test |
+| HOD | hod@nmamit.test |
+| Mentor | meera@nmamit.test, suresh@nmamit.test |
+| Mentee | kavya@nmamit.test, rohan@nmamit.test, sneha@nmamit.test, arjun@nmamit.test, divya@nmamit.test, nikhil@nmamit.test |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+New mentees can also self-register at `/register`.
 
-## Deploy on Vercel
+## Design
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The layout follows the provided "E-Skool" reference: a solid sidebar, a hero card with an illustration, card sections with "View more" links, and a right rail with a calendar and today's tasks. It uses this palette:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`#353535` ink · `#3c6e71` teal · `#ffffff` · `#d9d9d9` mist · `#284b63` navy (tokens live in [src/app/globals.css](src/app/globals.css)).
+
+## Database
+
+- The app connects with `node-postgres` through a pooled client on Neon's `-pooler` endpoint ([src/db/index.ts](src/db/index.ts)). That is Neon's recommendation for a long-running Node server.
+- Migrations and seeding use `DATABASE_URL_UNPOOLED`.
+- Schema: [src/db/schema.ts](src/db/schema.ts). Tables: `users`, `mentee_profiles`, `notes`, `goals`, `meetings`, `audit_logs`.
