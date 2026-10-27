@@ -91,3 +91,38 @@ The layout follows the provided "E-Skool" reference: a solid sidebar, a hero car
 - The app connects with `node-postgres` through a pooled client on Neon's `-pooler` endpoint ([src/db/index.ts](src/db/index.ts)). That is Neon's recommendation for a long-running Node server.
 - Migrations and seeding use `DATABASE_URL_UNPOOLED`.
 - Schema: [src/db/schema.ts](src/db/schema.ts). Tables: `users`, `mentee_profiles`, `notes`, `goals`, `meetings`, `audit_logs`.
+
+## Prompts used
+
+This app was built with an AI coding assistant (Claude Code). These are the prompts that produced it.
+
+### Prompt 1: build the app
+
+> Design a website for a Mentor–Mentee application considering the following requirements:
+> - i) The mentee enters all their info, i.e. name, USN, hobby, photo, etc.
+> - ii) Mentor must have access to that info and also must be able to recommend & give notes.
+> - iii) This info can also be endorsed by an administrator.
+> - iv) The HOD can also see.
+>
+> Add some more features if you find it necessary
+>
+> So basically RBAC student management application, use nextjs itself, use Make the UI responsive and use the provided design for inspiration for the layout, but use this color palette instead ["#353535","#3c6e71","#ffffff","#d9d9d9","#284b63"].
+>
+> also use this for database
+> Set up this app on Neon.
+> 1. npm i -g neon@latest. If that fails, use npx neon@latest in place of neon.
+>    If a neon command opens a browser sign-in, tell me to finish it there. If that times out or fails, ask me to run neon login, then retry.
+> 2. In the project root:
+>    neon init -y --org-id org-floral-cake-52370450 --project-id damp-term-08578573 --branch production --services postgres
+> 3. neon deploy. It provisions the services in neon.ts and pulls their env vars into .env.local (or .env if it exists).
+> 4. Wire each service into the app's code using those env vars. Consult the installed Neon agent skills for best practices, e.g., what database driver to use given the app architecture and hosting runtime.
+> 5. Prove it works: npm run build must pass, then start the app, each wired service must be tested to prove it works end to end.
+> 6. Report what changed, the command output that proves step 5, and anything that failed.
+
+### Prompt 2: guided tour
+
+> Also add a guided tour for all the pages and functions
+
+### Prompt 3: deploy to Vercel
+
+> I want to host it on vercel, can you use vercel cli and help me do it
